@@ -1,11 +1,9 @@
-package com.cameronfenton.tinderswipe;
+package com.cameronfenton.newwork;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-
-import com.cameronfenton.tinderswipe.R;
 
 
 public class SplashActivity extends AppCompatActivity {

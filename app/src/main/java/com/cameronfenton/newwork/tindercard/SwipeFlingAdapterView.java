@@ -1,4 +1,4 @@
-package com.cameronfenton.tinderswipe.tindercard;
+package com.cameronfenton.newwork.tindercard;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
 
-import com.cameronfenton.tinderswipe.R;
+import com.cameronfenton.newwork.R;
 
 public class SwipeFlingAdapterView extends BaseFlingAdapterView {
 
@@ -28,7 +28,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
     private boolean mInLayout = false;
     private View mActiveCard = null;
     private OnItemClickListener mOnItemClickListener;
-    private com.cameronfenton.tinderswipe.tindercard.FlingCardListener flingCardListener;
+    private com.cameronfenton.newwork.tindercard.FlingCardListener flingCardListener;
     private PointF mLastTouchPoint;
 
 

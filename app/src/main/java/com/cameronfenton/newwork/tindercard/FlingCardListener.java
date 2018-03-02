@@ -1,4 +1,4 @@
-package com.cameronfenton.tinderswipe.tindercard;
+package com.cameronfenton.newwork.tindercard;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
-import com.cameronfenton.tinderswipe.MainActivity;
+import com.cameronfenton.newwork.MainActivity;
 
 public class FlingCardListener implements View.OnTouchListener {
 
