@@ -1,11 +1,13 @@
 package com.cameronfenton.newwork;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -49,9 +51,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 System.out.println("Passwords: " + password1 +" " + password2);
 
-                if (password1.equals(password2)) {
+                if (password1.equals(password2) && fname.length() > 1 && lname.length() > 1 && email.length() > 1) {
 
-                    password = password1;
+                    password = BCrypt.hashpw(password1, BCrypt.gensalt());
 
                     try {
                         System.out.println("passwords are equal attempting to insert");
@@ -67,17 +69,42 @@ public class RegisterActivity extends AppCompatActivity {
 
                         int count = st.executeUpdate(query);
 
+                        st.close();
+
                         if (count > 0) {
+                            Context context = getApplicationContext();
+                            CharSequence text = "Account Created!";
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+
                             System.out.println("Successful");
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+
                         } else {
                             System.out.println("Not Successful");
+                            Context context = getApplicationContext();
+                            CharSequence text = "Register Not Successful!";
+                            int duration = Toast.LENGTH_SHORT;
+
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
                         }
 
-                        st.close();
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence text = "Passwords must match and fields must be not be empty!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
             }
         });
