@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <!-- activity view -->
     <FrameLayout
         android:layout_width="match_parent"
