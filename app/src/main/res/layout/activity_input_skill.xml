@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content">
 
                 <Spinner
-                    android:id="@+id/planets_spinner"
+                    android:id="@+id/spinnerSkill"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
 
@@ -60,12 +60,12 @@
 
 
             <Button
-                android:id="@+id/btnRegister"
+                android:id="@+id/btnSubmit"
                 style="?android:textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_register"
+                android:text="Submit"
                 android:textStyle="bold" />
 
         </LinearLayout>

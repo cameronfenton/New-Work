@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
                 String username = inputUsername.getText().toString();
                 String enteredPassword = inputPassword.getText().toString();
                 String password = "";
+                String userID = "-1";
+                String email = "";
                 boolean passwordResult = false;
 
                 try {
@@ -57,13 +59,16 @@ public class LoginActivity extends AppCompatActivity {
                     while (rs.next()) {
                         System.out.print("Column 1 returned ");
                         System.out.println("Password" + rs.getString("password_digest"));
-                        password=rs.getString("password_digest");
+                        password = rs.getString("password_digest");
+                        userID = String.valueOf(rs.getInt("user_id"));
+                        email = String.valueOf(rs.getString("email"));
                     }
 
                     passwordResult = BCrypt.checkpw(enteredPassword, password);
 
                     System.out.println("Password result " + passwordResult);
-
+                    System.out.println("User ID: " + userID);
+                    System.out.println("Username: " + email);
                     rs.close();
                     st.close();
                     conn.close();
@@ -73,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (passwordResult) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("SESSION_USER_ID", userID);
+                    intent.putExtra("SESSION_EMAIL", email);
                     startActivity(intent);
                     finish();
 

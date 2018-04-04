@@ -9,8 +9,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -20,12 +22,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * A register screen that offers login via email/password.
  */
 public class SkillActivity extends AppCompatActivity {
+    Bundle sessionVariables;
+    EditText inputSkill;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,7 +43,8 @@ public class SkillActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         MenuItem itemID = item;
-
+        String userID = sessionVariables.getString("SESSION_USER_ID");
+        String email = sessionVariables.getString("SESSION_EMAIL");
         String itemName = String.valueOf(itemID);
         Log.d("ActionBar","Item ID: " + itemID);
 
@@ -46,7 +52,16 @@ public class SkillActivity extends AppCompatActivity {
 
             case "Profile":
                 Intent intent = new Intent(SkillActivity.this, SkillActivity.class);
+                intent.putExtra("SESSION_USER_ID", userID);
+                intent.putExtra("SESSION_EMAIL", email);
                 startActivity(intent);
+                finish();
+                return true;
+            case "Home":
+                Intent intent1 = new Intent(SkillActivity.this, MainActivity.class);
+                intent1.putExtra("SESSION_USER_ID", userID);
+                intent1.putExtra("SESSION_EMAIL", email);
+                startActivity(intent1);
                 finish();
                 return true;
             default:
@@ -58,6 +73,72 @@ public class SkillActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_skill);
+
+        Spinner skillSpinner = (Spinner) findViewById(R.id.spinnerSkill);
+        Button btnSubmit = (Button) findViewById(R.id.btnSubmit);
+        inputSkill = (EditText) findViewById(R.id.txtSkillName);
+
+        try {
+
+            Connection conn = getPostgreSQLConnection();
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT skill_level FROM skill_levels");
+            ArrayList<String> data = new ArrayList<String>();
+
+            while (rs.next()) {
+                int skill = rs.getInt("skill_level");
+                data.add(String.valueOf(skill));
+            }
+            String[] array = data.toArray(new String[0]);
+            ArrayAdapter NoCoreAdapter = new ArrayAdapter(this,
+
+                    android.R.layout.simple_list_item_1, data);
+
+            skillSpinner.setAdapter(NoCoreAdapter);
+
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    String skillName = inputSkill.getText().toString().toLowerCase();
+
+                    Connection conn = getPostgreSQLConnection();
+
+                    Statement st = conn.createStatement();
+                    ResultSet rs = st.executeQuery("SELECT count(*) FROM skills WHERE skill_name='" + skillName + "'");
+                    rs.next();
+
+                    int count = rs.getInt(1);
+
+                    System.out.println("Count of matching skills: " + count);
+
+                    if (count == 1) {
+                        Statement st1 = conn.createStatement();
+                        ResultSet rs1 = st.executeQuery("SELECT id FROM skills WHERE skill_name='" + skillName + "'");
+                        rs1.next();
+                        int id = rs1.getInt("id");
+                        System.out.println("ID of matching skill: " + id);
+
+                    } else {
+                        System.out.println("Creating skill");
+                    }
+
+                    rs.close();
+                    st.close();
+                    conn.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
     }
 

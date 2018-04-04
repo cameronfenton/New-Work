@@ -26,7 +26,7 @@ import java.util.List;
 
 
 public class ListingsActivity extends AppCompatActivity implements FlingCardListener.ActionDownInterface {
-
+    Bundle sessionVariables;
     public static MyAppAdapter myAppAdapter;
     public static ViewHolder viewHolder;
     private ArrayList<Data> al;
@@ -49,7 +49,8 @@ public class ListingsActivity extends AppCompatActivity implements FlingCardList
     public boolean onOptionsItemSelected(MenuItem item) {
 
         MenuItem itemID = item;
-
+        String userID = sessionVariables.getString("SESSION_USER_ID");
+        String email = sessionVariables.getString("SESSION_EMAIL");
         String itemName = String.valueOf(itemID);
         Log.d("ActionBar","Item ID: " + itemID);
 
@@ -57,7 +58,16 @@ public class ListingsActivity extends AppCompatActivity implements FlingCardList
 
             case "Profile":
                 Intent intent = new Intent(ListingsActivity.this, SkillActivity.class);
+                intent.putExtra("SESSION_USER_ID", userID);
+                intent.putExtra("SESSION_EMAIL", email);
                 startActivity(intent);
+                finish();
+                return true;
+            case "Home":
+                Intent intent1 = new Intent(ListingsActivity.this, MainActivity.class);
+                intent1.putExtra("SESSION_USER_ID", userID);
+                intent1.putExtra("SESSION_EMAIL", email);
+                startActivity(intent1);
                 finish();
                 return true;
             default:

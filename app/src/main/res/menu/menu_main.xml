@@ -4,11 +4,15 @@
     tools:context="com.cameronfenton.newwork.MainActivity">
 
     <item
+        android:id="@+id/home"
+        android:orderInCategory="100"
+        android:title="Home"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/profile"
         android:orderInCategory="100"
         android:title="Profile"
         app:showAsAction="never" />
-
     <item
         android:id="@+id/logout"
         android:orderInCategory="100"

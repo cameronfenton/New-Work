@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
                         rs.next();
                         int tblI = rs.getInt(1)+1;
 
-                        String query = "INSERT INTO users VALUES ('" + tblI + "', '" + fname + "','" + lname + "', '" + password + "', '" + email + "', '" + currDateTime +"', '" + currDateTime +"')";
+                        String query = "INSERT INTO users VALUES ('" + tblI + "', '" + tblI + "', '" + fname + "','" + lname + "', '" + password + "', '" + email + "', '" + currDateTime +"', '" + currDateTime +"')";
                         System.out.println("Query: " + query + "");
 
                         int count = st.executeUpdate(query);
