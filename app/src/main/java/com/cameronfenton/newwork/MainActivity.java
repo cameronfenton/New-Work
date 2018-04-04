@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
             case "Home":
                 finish();
                 return true;
+            case "Logout":
+                Intent intent2 = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent2);
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -109,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 System.out.println("User ID: " + sessionVariables.getString("SESSION_USER_ID"));
+                Intent intent2 = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent2);
+                finish();
             }
         });
 

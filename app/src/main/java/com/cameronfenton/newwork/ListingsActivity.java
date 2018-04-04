@@ -76,6 +76,10 @@ public class ListingsActivity extends AppCompatActivity implements FlingCardList
                 startActivity(intent1);
                 finish();
                 return true;
+            case "Logout":
+                Intent intent2 = new Intent(ListingsActivity.this, LoginActivity.class);
+                startActivity(intent2);
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }

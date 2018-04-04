@@ -44,6 +44,10 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent1);
                 finish();
                 return true;
+            case "Logout":
+                Intent intent2 = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent2);
+                finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
