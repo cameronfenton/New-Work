@@ -3,6 +3,7 @@ package com.cameronfenton.newwork;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +23,10 @@ import com.bumptech.glide.Glide;
 import com.cameronfenton.newwork.tindercard.FlingCardListener;
 import com.cameronfenton.newwork.tindercard.SwipeFlingAdapterView;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,10 +88,43 @@ public class ListingsActivity extends AppCompatActivity implements FlingCardList
         sessionVariables = getIntent().getExtras();
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         al = new ArrayList<>();
-        al.add(new Data("http://pngimg.com/uploads/google/google_PNG19625.png", "Software developer at Google\nBased on your skills: Java, C++, Visio"));
-        al.add(new Data("http://pngimg.com/uploads/google/google_PNG19625.png", "Project Manager at IBM\nBased on your skills: COBOL, Visio, Project Management"));
-        al.add(new Data("http://pngimg.com/uploads/google/google_PNG19625.png", "CPA Program Instructor Part Time at Durham College\nBased on your skills: Java, C++, COBOL, Education Degree"));
+
+        //
+        try {
+            Connection conn = getPostgreSQLConnection();
+
+            Statement st = conn.createStatement();
+
+            ResultSet rs = st.executeQuery("SELECT * from POSTINGS");
+           // ResultSet locationSet;
+
+            while(rs.next()){
+
+                String[] currentRow = new String[8];
+
+                for(int i = 1;i<=8;i++){
+                    currentRow[i-1]=rs.getString(i);
+                }
+
+/*                locationSet = st.executeQuery("SELECT city FROM locations WHERE id = '"+ rs.getString("location_id")+"'");
+
+                locationSet.next();*/
+
+                al.add(new Data("http://pngimg.com/uploads/google/google_PNG19625.png", "Job Title: " + currentRow[4] + "\n\nJob Description: " + currentRow[5]));
+
+            }
+
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //
 
         myAppAdapter = new MyAppAdapter(al, ListingsActivity.this);
         flingContainer.setAdapter(myAppAdapter);
@@ -153,6 +192,27 @@ public class ListingsActivity extends AppCompatActivity implements FlingCardList
         public ImageView cardImage;
 
 
+    }
+
+    public Connection getPostgreSQLConnection() {
+        Connection conn = null;
+
+        try {
+            Class.forName("org.postgresql.Driver");
+
+            String mysqlConnUrl = "jdbc:postgresql://99.238.34.94:5432/newwork_production";
+
+            String mysqlUserName = "newwork";
+
+            String mysqlPassword = "password";
+
+            conn = DriverManager.getConnection(mysqlConnUrl, mysqlUserName , mysqlPassword);
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            return conn;
+        }
     }
 
     public class MyAppAdapter extends BaseAdapter {

@@ -13,9 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.w3c.dom.Text;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,6 +33,7 @@ import java.util.Date;
 public class SkillActivity extends AppCompatActivity {
     Bundle sessionVariables;
     EditText inputSkill;
+    EditText txtSkills;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,6 +82,7 @@ public class SkillActivity extends AppCompatActivity {
         Spinner skillSpinner = (Spinner) findViewById(R.id.spinnerSkill);
         Button btnSubmit = (Button) findViewById(R.id.btnSubmit);
         inputSkill = (EditText) findViewById(R.id.txtSkillName);
+        txtSkills =  (EditText) findViewById(R.id.skillsList);
 
         try {
 
@@ -98,6 +102,28 @@ public class SkillActivity extends AppCompatActivity {
                     android.R.layout.simple_list_item_1, data);
 
             skillSpinner.setAdapter(NoCoreAdapter);
+
+            rs.close();
+            st.close();
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            String userID = sessionVariables.getString("SESSION_USER_ID");
+            Connection conn = getPostgreSQLConnection();
+
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT skill_id FROM skillsets WHERE user_id='"+userID+"'");
+            ArrayList<String> data = new ArrayList<String>();
+
+            while(rs.next()) {
+                System.out.println("Skill ID: " + rs.getString("id"));
+            }
+            //
+            // array of skill ids
+            //
 
             rs.close();
             st.close();

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".SkillActivity">
     <!-- activity view -->
@@ -20,11 +21,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView"
+            <EditText
+                android:id="@+id/skillsList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="User Details" />
 
             <android.support.design.widget.TextInputLayout
@@ -32,14 +34,14 @@
                 android:layout_height="wrap_content">
 
 
-                <AutoCompleteTextView
-                    android:id="@+id/txtSkillName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_skill"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+            <AutoCompleteTextView
+                android:id="@+id/txtSkillName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_skill"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -63,12 +65,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Submit"
                 android:textStyle="bold" />
-            <com.cameronfenton.newwork.tindercard.SwipeFlingAdapterView
-                android:id="@+id/frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/background"
-                app:rotation_degrees="15.5" />
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>
