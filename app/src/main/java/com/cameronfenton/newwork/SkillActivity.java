@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * A register screen that offers login via email/password.
+ * A profile screen that offers login via email/password.
  */
 public class SkillActivity extends AppCompatActivity {
     Bundle sessionVariables;
@@ -69,11 +69,13 @@ public class SkillActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_skill);
 
+        sessionVariables = getIntent().getExtras();
         Spinner skillSpinner = (Spinner) findViewById(R.id.spinnerSkill);
         Button btnSubmit = (Button) findViewById(R.id.btnSubmit);
         inputSkill = (EditText) findViewById(R.id.txtSkillName);

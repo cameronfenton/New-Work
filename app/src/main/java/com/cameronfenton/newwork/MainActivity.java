@@ -54,10 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 return true;
             case "Home":
-                Intent intent1 = new Intent(MainActivity.this, MainActivity.class);
-                intent1.putExtra("SESSION_USER_ID", userID);
-                intent1.putExtra("SESSION_EMAIL", email);
-                startActivity(intent1);
                 finish();
                 return true;
             default:
@@ -90,6 +86,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ListingsActivity.class);
+                intent.putExtra("SESSION_USER_ID", userID);
+                intent.putExtra("SESSION_EMAIL", email);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SkillActivity.class);
                 intent.putExtra("SESSION_USER_ID", userID);
                 intent.putExtra("SESSION_EMAIL", email);
                 startActivity(intent);

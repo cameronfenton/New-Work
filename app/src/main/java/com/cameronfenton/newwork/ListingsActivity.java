@@ -79,7 +79,7 @@ public class ListingsActivity extends AppCompatActivity implements FlingCardList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listings);
-
+        sessionVariables = getIntent().getExtras();
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
 
         al = new ArrayList<>();
