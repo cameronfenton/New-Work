@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 
+import com.cameronfenton.newwork.ListingsActivity;
 import com.cameronfenton.newwork.MainActivity;
 
 public class FlingCardListener implements View.OnTouchListener {
@@ -70,7 +71,7 @@ public class FlingCardListener implements View.OnTouchListener {
 
                 // from http://android-developers.blogspot.com/2010/06/making-sense-of-multitouch.html
                 // Save the ID of this pointer
-                MainActivity.removeBackground();
+                ListingsActivity.removeBackground();
 
 
                 mActivePointerId = event.getPointerId(0);

@@ -39,6 +39,9 @@
         <activity
             android:name=".SkillActivity"
             android:label="Profile"></activity>
+        <activity
+            android:name=".ListingsActivity"
+            android:label="Profile"></activity>
     </application>
 
 </manifest>
