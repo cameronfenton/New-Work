@@ -5,7 +5,7 @@ android {
     buildToolsVersion '26.0.2'
 
     defaultConfig {
-        applicationId "com.cameronfenton.tinderswipe"
+        applicationId "com.cameronfenton.newwork"
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1

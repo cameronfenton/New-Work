@@ -1,4 +1,4 @@
-package com.cameronfenton.tinderswipe;
+package com.cameronfenton.newwork;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

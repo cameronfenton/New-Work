@@ -1,4 +1,4 @@
-package com.cameronfenton.tinderswipe;
+package com.cameronfenton.newwork;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.cameronfenton.tinderswipe.tindercard.FlingCardListener;
-import com.cameronfenton.tinderswipe.tindercard.SwipeFlingAdapterView;
+import com.cameronfenton.newwork.tindercard.FlingCardListener;
+import com.cameronfenton.newwork.tindercard.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;

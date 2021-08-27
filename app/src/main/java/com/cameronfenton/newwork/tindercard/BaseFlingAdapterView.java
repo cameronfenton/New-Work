@@ -1,4 +1,4 @@
-package com.cameronfenton.tinderswipe.tindercard;
+package com.cameronfenton.newwork.tindercard;
 
 import android.content.Context;
 import android.util.AttributeSet;
